@@ -1,0 +1,12 @@
+insert into employee (id, name, date_of_birth, email) values (1, 'Walter Russell', '1982-07-24', 'wrussell0@xinhuanet.com');
+insert into employee (id, name, date_of_birth, email) values (2, 'Linda Harper', '1955-02-16', 'lharper1@sohu.com');
+insert into employee (id, name, date_of_birth, email) values (3, 'Jesse Romero', '1982-01-18', 'jromero2@google.nl');
+insert into employee (id, name, date_of_birth, email) values (4, 'Amanda Wheeler', '1974-10-14', 'awheeler3@marketwatch.com');
+insert into employee (id, name, date_of_birth, email) values (5, 'Marie Garrett', '1962-05-31', 'mgarrett4@mapquest.com');
+insert into employee (id, name, date_of_birth, email) values (6, 'Linda Jones', '1994-05-17', 'ljones5@kickstarter.com');
+insert into employee (id, name, date_of_birth, email) values (7, 'Shirley Simmons', '1982-01-14', 'ssimmons6@nhs.uk');
+insert into employee (id, name, date_of_birth, email) values (8, 'Christine Olson', '1966-12-09', 'colson7@hostgator.com');
+insert into employee (id, name, date_of_birth, email) values (9, 'Lawrence Clark', '1984-06-04', 'lclark8@nba.com');
+insert into employee (id, name, date_of_birth, email) values (10, 'Tina Franklin', '1990-04-03', 'tfranklin9@simplemachines.org');
+insert into employee (id, name, date_of_birth, email) values (11, 'Margaret Stevens', '1975-04-23', 'mstevensa@microsoft.com');
+insert into employee (id, name, date_of_birth, email) values (12, 'Heather Ferguson', '1970-03-08', 'hfergusonb@google.cn');
