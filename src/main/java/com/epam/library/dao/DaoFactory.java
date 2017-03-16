@@ -28,11 +28,10 @@ public interface DaoFactory<Context> {
     Context getContext() throws PersistException;
 
     /**
-     * @param context
      * @param dtoClass Corresponding model <code>Class</code>
      * @return DAO object for {@code dtoClass} model
      * @throws PersistException
      */
-    GenericDao getDao(Context context, Class dtoClass) throws PersistException;
+    GenericDao getDao(Class dtoClass) throws PersistException;
 
 }

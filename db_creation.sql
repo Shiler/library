@@ -19,6 +19,7 @@ USE `library` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `library`.`book` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(50) NOT NULL,
   `brief` VARCHAR(50) NOT NULL,
   `publish_year` INT(11) NOT NULL,
   `author` VARCHAR(255) NOT NULL,
