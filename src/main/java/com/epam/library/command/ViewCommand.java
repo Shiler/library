@@ -1,5 +1,6 @@
 package com.epam.library.command;
 
+import com.epam.library.domain.Book;
 import com.epam.library.domain.Employee;
 import com.epam.library.exception.ServiceException;
 import com.epam.library.service.impl.BookService;
@@ -32,7 +33,7 @@ public class ViewCommand implements ICommand {
         switch (params) {
             case AvailableOperations.BOOKS_PARAM:
                 BookService bookService = new BookService();
-                reportString = bookService.showAll();
+                reportString = BookService.bookListToString(bookService.list());
                 break;
             case AvailableOperations.EMPLOYEES_LONG_PARAM:
             case AvailableOperations.EMPLOYEES_SHORT_PARAM:

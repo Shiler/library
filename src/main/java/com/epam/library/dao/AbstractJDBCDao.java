@@ -184,7 +184,7 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
      * @throws PersistException
      */
     protected Identified getDependence(Class<? extends Identified> dtoClass, Serializable pk) throws PersistException {
-        return parentFactory.getDao(connection, dtoClass).getByPK(pk);
+        return parentFactory.getDao(dtoClass).getByPK(pk);
     }
 
     protected boolean addRelation(Class<? extends Identified> ownerClass, String field) {

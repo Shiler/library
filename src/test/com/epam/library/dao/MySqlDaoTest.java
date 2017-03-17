@@ -42,7 +42,7 @@ public class MySqlDaoTest extends GenericDaoTest<Connection> {
     public void setUp() throws PersistException, SQLException {
         connection = factory.getContext();
         connection.setAutoCommit(false);
-        dao = factory.getDao(connection, daoClass);
+        dao = factory.getDao(daoClass);
     }
 
     @After

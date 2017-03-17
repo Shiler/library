@@ -31,12 +31,12 @@ public class ManyToOne<Owner extends Identified, Dependence extends Identified> 
 
     public Identified persistDependence(Owner owner, Connection connection)
             throws IllegalAccessException, PersistException {
-        return factory.getDao(connection, field.getType()).persist(getDependence(owner));
+        return factory.getDao(field.getType()).persist(getDependence(owner));
     }
 
     public void updateDependence(Owner owner, Connection connection)
             throws IllegalAccessException, PersistException {
-        factory.getDao(connection, field.getType()).update(getDependence(owner));
+        factory.getDao(field.getType()).update(getDependence(owner));
     }
 
     @Override

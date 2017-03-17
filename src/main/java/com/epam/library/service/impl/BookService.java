@@ -25,7 +25,7 @@ public class BookService implements IBookService {
     public BookService() {
         daoFactory = new MySqlDaoFactory();
         try {
-            bookDao = (MySqlBookDao) daoFactory.getDao(MySqlBookDao.class);
+            bookDao = (MySqlBookDao) daoFactory.getDao(Book.class);
         } catch (PersistException e) {
             logger.error("Unable to get DAO for BookService");
         }
@@ -40,18 +40,7 @@ public class BookService implements IBookService {
         }
     }
 
-    public String showAll() {
-        List<Book> bookList;
-        try {
-            bookList = list();
-            return bookListToString(bookList);
-        } catch (ServiceException e) {
-            logger.error("DAO persistence error in BookService");
-            return "Can't view books due to the errors in DAO";
-        }
-    }
-
-    private String bookListToString(List<Book> list) {
+    public static String bookListToString(List<Book> list) {
         StringBuffer stringBuffer = new StringBuffer();
         for (Book book : list) {
             stringBuffer.append(book.getId());
@@ -59,7 +48,7 @@ public class BookService implements IBookService {
             stringBuffer.append(book.getAuthor());
             stringBuffer.append("\t");
             stringBuffer.append(book.getDateOfPublishing());
-            stringBuffer.append("\t");
+            stringBuffer.append("\n");
         }
         return stringBuffer.toString();
     }
