@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Yauhen_Yushkevich on 17.03.17.
  */
-public interface IBookService extends IService<Book, Integer> {
+public interface ICRUDBookService extends ICRUDService<Book, Integer> {
 
     List<Book> list() throws ServiceException;
 

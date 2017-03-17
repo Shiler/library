@@ -6,7 +6,7 @@ import com.epam.library.dao.impl.MySqlBookDao;
 import com.epam.library.dao.impl.MySqlDaoFactory;
 import com.epam.library.domain.Book;
 import com.epam.library.exception.ServiceException;
-import com.epam.library.service.IBookService;
+import com.epam.library.service.ICRUDBookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Yauhen_Yushkevich on 16.03.17.
  */
-public class BookService implements IBookService {
+public class BookService implements ICRUDBookService {
 
     private final static Logger logger = LogManager.getLogger(BookService.class);
 

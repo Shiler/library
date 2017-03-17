@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Yauhen_Yushkevich on 17.03.17.
  */
-public interface IService<T extends Identified<PK>, PK extends Serializable> {
+public interface ICRUDService<T extends Identified<PK>, PK extends Serializable> {
 
     T getById(PK id) throws ServiceException;
 
