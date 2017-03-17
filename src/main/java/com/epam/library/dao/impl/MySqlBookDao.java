@@ -97,4 +97,17 @@ public class MySqlBookDao extends AbstractJDBCDao<Book, Integer> {
         return result;
     }
 
+    public void renameBook(String titleOld, String titleNew) throws PersistException {
+        String sql = "UPDATE `book` SET `title` = ? WHERE `title` = ?;";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.setString(1, titleNew);
+            statement.setString(2, titleOld);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new PersistException();
+        }
+
+    }
+
 }

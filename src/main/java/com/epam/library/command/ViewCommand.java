@@ -1,8 +1,8 @@
 package com.epam.library.command;
 
 import com.epam.library.exception.ServiceException;
-import com.epam.library.service.BookService;
-import com.epam.library.service.EmployeeService;
+import com.epam.library.service.impl.BookService;
+import com.epam.library.service.impl.EmployeeService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
