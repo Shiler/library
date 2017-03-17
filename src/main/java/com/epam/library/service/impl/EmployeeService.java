@@ -39,6 +39,21 @@ public class EmployeeService implements IEmployeeService {
         }
     }
 
+    public static String listToString(List<Employee> list) {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (Employee employee : list) {
+            stringBuffer.append(employee.getId());
+            stringBuffer.append("\t");
+            stringBuffer.append(employee.getName());
+            stringBuffer.append("\t");
+            stringBuffer.append(employee.getEmail());
+            stringBuffer.append("\t");
+            stringBuffer.append(employee.getDateOfBirth());
+            stringBuffer.append("\n");
+        }
+        return stringBuffer.toString();
+    }
+
     @Override
     public List<Employee> employeesWithMoreThanOneBook() throws ServiceException {
         return null;

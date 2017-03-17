@@ -1,5 +1,6 @@
 package com.epam.library.command;
 
+import com.epam.library.domain.Employee;
 import com.epam.library.exception.ServiceException;
 import com.epam.library.service.impl.BookService;
 import com.epam.library.service.impl.EmployeeService;
@@ -14,6 +15,7 @@ public class ViewCommand implements ICommand {
     //TODO: Add options to view single book and employee
 
     private static final Logger LOG = LogManager.getLogger();
+
     @Override
     public String execute(String params) {
         String response = "";
@@ -35,7 +37,7 @@ public class ViewCommand implements ICommand {
             case AvailableOperations.EMPLOYEES_LONG_PARAM:
             case AvailableOperations.EMPLOYEES_SHORT_PARAM:
                 EmployeeService employeeService = new EmployeeService();
-                reportString = employeeService.showAll();
+                reportString = EmployeeService.listToString(employeeService.list());
                 break;
             default:
                 reportString = AvailableOperations.INVALID_PARAMETER_LIST_MESSAGE;

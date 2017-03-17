@@ -18,10 +18,10 @@ public class ReportCommand implements ICommand {
         try {
             switch (params) {
                 case AvailableOperations.MORE_THAN_1_PARAM:
-                    reportString = employeeService.employeesWithMoreThanOneBook();
+                    reportString = EmployeeService.listToString(employeeService.employeesWithMoreThanOneBook());
                     break;
                 case AvailableOperations.LESS_OR_EQ_THAN_2_PARAM:
-                    reportString = employeeService.employeesWithLessOrEqThanTwoBooks();
+                    reportString = EmployeeService.listToString(employeeService.employeesWithLessOrEqThanTwoBooks());
                     break;
                 default:
                     reportString = AvailableOperations.INVALID_PARAMETER_LIST_MESSAGE;
@@ -31,3 +31,4 @@ public class ReportCommand implements ICommand {
         }
         return reportString;
     }
+}

@@ -7,7 +7,6 @@ import com.epam.library.dao.impl.MySqlDaoFactory;
 import com.epam.library.domain.Book;
 import com.epam.library.exception.ServiceException;
 import com.epam.library.service.IBookService;
-import com.epam.library.service.IService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -112,4 +111,6 @@ public class BookService implements IBookService {
         }
         return list;
     }
+
+
 }
