@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * A wrapper class working with application's <code>InitialContext</code>
  * and its <code>DataSource</code>
  */
-public class ConnectionPool {
+public class TomcatConnectionPool {
 
     /**
      * {@link InitialContext} static variable
@@ -29,7 +29,7 @@ public class ConnectionPool {
     /**
      * Logger variable
      */
-    private final static Logger logger = LogManager.getLogger(ConnectionPool.class);
+    private final static Logger logger = LogManager.getLogger(TomcatConnectionPool.class);
 
     /**
      * Static initialization of the Pool variables.
