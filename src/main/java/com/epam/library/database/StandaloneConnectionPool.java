@@ -29,7 +29,7 @@ public class StandaloneConnectionPool {
         return COMBO_POOLED_DATA_SOURCE.getConnection();
     }
 
-    public void close() {
+    public static void close() {
         COMBO_POOLED_DATA_SOURCE.close();
     }
 
