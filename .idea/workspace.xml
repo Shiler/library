@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f8583b8-ce6e-4a31-8afb-e0327b8c9bb1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/library/database/StandaloneConnectionPool.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/epam/library/util/PropertyLoader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/connection-pool.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/log4j2.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/epam/library/database/ConnectionPool.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/library/database/TomcatConnectionPool.java" />
+    <list default="true" id="2f8583b8-ce6e-4a31-8afb-e0327b8c9bb1" name="Default" comment="sql scripts moved to separate folder">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/book_table_fill.sql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/db_creation.sql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/employee_book_table_fill.sql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/employee_table_fill.sql" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/book_table_fill.sql" afterPath="$PROJECT_DIR$/sql-scripts/book_table_fill.sql" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/db_creation.sql" afterPath="$PROJECT_DIR$/sql-scripts/db_creation.sql" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/employee_book_table_fill.sql" afterPath="$PROJECT_DIR$/sql-scripts/employee_book_table_fill.sql" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/employee_table_fill.sql" afterPath="$PROJECT_DIR$/sql-scripts/employee_table_fill.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library.iml" afterPath="$PROJECT_DIR$/library.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/epam/library/dao/impl/MySqlDaoFactory.java" afterPath="$PROJECT_DIR$/src/main/java/com/epam/library/dao/impl/MySqlDaoFactory.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -82,8 +82,8 @@
       <file leaf-file-name="StandaloneConnectionPool.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/library/database/StandaloneConnectionPool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state relative-caret-position="238">
+              <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#907#908#0" expanded="true" />
@@ -333,6 +333,14 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="library" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -352,6 +360,7 @@
       <recent name="com.epam.library.dao" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Yauhen_Yushkevich\IdeaProjects\library\sql-scripts" />
       <recent name="C:\Users\Yauhen_Yushkevich\IdeaProjects\library\src\main\resources" />
       <recent name="C:\Users\Yauhen_Yushkevich\IdeaProjects\library\config" />
       <recent name="C:\Users\Yauhen_Yushkevich\IdeaProjects\library\src" />
@@ -892,7 +901,7 @@
       <workItem from="1489674669220" duration="1880000" />
       <workItem from="1489756434964" duration="5988000" />
       <workItem from="1490027085385" duration="514000" />
-      <workItem from="1490092039403" duration="3176000" />
+      <workItem from="1490092039403" duration="3303000" />
     </task>
     <task id="LOCAL-00001" summary="command, controller, exceptions &amp; test">
       <created>1489677056336</created>
@@ -929,7 +938,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489763265885</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="log4j, DB connection pool, db init parameters moved to .properties file">
+      <created>1490095281783</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1490095281783</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -950,15 +966,15 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23922000" />
+    <option name="totallyTimeSpent" value="24049000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -1007,7 +1023,9 @@
     <MESSAGE value="some fixes" />
     <MESSAGE value="working version" />
     <MESSAGE value="code refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="code refactoring" />
+    <MESSAGE value="log4j, DB connection pool, db init parameters moved to .properties file" />
+    <MESSAGE value="sql scripts moved to separate folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="sql scripts moved to separate folder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1054,28 +1072,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db_creation.sql">
+    <entry file="file://$PROJECT_DIR$/sql-scripts/db_creation.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/employee_table_fill.sql">
+    <entry file="file://$PROJECT_DIR$/sql-scripts/employee_table_fill.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/book_table_fill.sql">
+    <entry file="file://$PROJECT_DIR$/sql-scripts/book_table_fill.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="25" column="34" selection-start-line="0" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/employee_book_table_fill.sql">
+    <entry file="file://$PROJECT_DIR$/sql-scripts/employee_book_table_fill.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3740">
           <caret line="220" column="40" selection-start-line="220" selection-start-column="40" selection-end-line="220" selection-end-column="40" />
@@ -1408,8 +1426,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/library/database/StandaloneConnectionPool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="238">
+          <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#907#908#0" expanded="true" />
