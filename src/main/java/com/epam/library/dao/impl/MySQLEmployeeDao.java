@@ -28,31 +28,6 @@ public final class MySQLEmployeeDao extends AbstractJDBCDao<Employee, Integer> {
     }
 
     @Override
-    public String getSelectQuery() {
-        return "SELECT `id`, `name`, `date_of_birth`, `email` FROM `employee` ";
-    }
-
-    @Override
-    public String getCreateQuery() {
-        return "INSERT INTO `employee` \n" +
-                "(`name`, `date_of_birth`, `email`) \n" +
-                "VALUES \n" +
-                "(?, ?, ?)";
-    }
-
-    @Override
-    public String getUpdateQuery() {
-        return "UPDATE `employee` \n" +
-                "SET `name` = ?, `date_of_birth` = ?, `email` = ? \n" +
-                "WHERE `id` = ?;";
-    }
-
-    @Override
-    public String getDeleteQuery() {
-        return "DELETE FROM `employee` WHERE `id` = ?";
-    }
-
-    @Override
     protected void prepareStatementForInsert(PreparedStatement statement, Employee object) throws PersistException {
         try {
             statement.setString(1, object.getName());

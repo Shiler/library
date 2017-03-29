@@ -1,8 +1,13 @@
 package com.epam.library.dao;
 
 import com.epam.library.dao.exception.PersistException;
+import com.epam.library.dao.query.CRUDQueryComposer;
+import com.epam.library.dao.query.exception.MissingPropertyException;
 import com.epam.library.domain.Identified;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,33 +26,84 @@ import java.util.Set;
 public abstract class AbstractJDBCDao<T extends Identified<PK>,
         PK extends Integer> implements GenericDao<T, PK> {
 
+    private final static Logger logger = LogManager.getLogger(AbstractJDBCDao.class);
+
+    private DaoFactory<Connection> parentFactory;
+    private Connection connection;
+    private Set<ManyToOne> relations = new HashSet<>();
+
+    private CRUDQueryComposer crudQueryComposer;
+
+    public AbstractJDBCDao(DaoFactory<Connection> parentFactory, Connection connection) {
+        this.parentFactory = parentFactory;
+        this.connection = connection;
+        try {
+            crudQueryComposer = new CRUDQueryComposer(this.getClass());
+        } catch (FileNotFoundException e) {
+            logger.error(e);
+        }
+    }
+
     /**
      * Returns a sql query for getting all records.
      * <p/>
      * SELECT * FROM [Table]
      */
-    public abstract String getSelectQuery();
+
+    private String getSelectQuery() {
+        String query = null;
+        try {
+            query = crudQueryComposer.composeReadQuery();
+        } catch (MissingPropertyException e) {
+            logger.error(e);
+        }
+        return query;
+    }
 
     /**
      * Returns a sql query for a new record inserting to the database.
      * <p/>
      * INSERT INTO [Table] ([column, column, ...]) VALUES (?, ?, ...);
      */
-    public abstract String getCreateQuery();
+    private String getCreateQuery() {
+        String query = null;
+        try {
+            query = crudQueryComposer.composeCreateQuery();
+        } catch (MissingPropertyException e) {
+            logger.error(e);
+        }
+        return query;
+    }
 
     /**
      * Returns a sql query for updating the records.
      * <p/>
      * UPDATE [Table] SET [column = ?, column = ?, ...] WHERE id = ?;
      */
-    public abstract String getUpdateQuery();
+    private String getUpdateQuery() {
+        String query = null;
+        try {
+            query = crudQueryComposer.composeUpdateQuery();
+        } catch (MissingPropertyException e) {
+            logger.error(e);
+        }
+        return query;
+    }
 
     /**
      * Returns a sql query for record deleting from the database.
      * <p/>
      * DELETE FROM [Table] WHERE id= ?;
      */
-    public abstract String getDeleteQuery();
+    private String getDeleteQuery() {
+        String query = null;
+        try {
+            query = crudQueryComposer.composeDeleteQuery();
+        } catch (MissingPropertyException e) {
+            logger.error(e);
+        }
+        return query;
+    }
 
     /**
      * Decomposes {@link ResultSet} and returns <code>List</code> of objects
@@ -67,12 +123,6 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
      * in accordance with the values of the object fields
      */
     protected abstract void prepareStatementForUpdate(PreparedStatement statement, T object) throws PersistException;
-
-    private DaoFactory<Connection> parentFactory;
-
-    private Connection connection;
-
-    private Set<ManyToOne> relations = new HashSet<>();
 
     @Override
     public T getByPK(Integer key) throws PersistException {
@@ -169,11 +219,6 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
         } catch (Exception e) {
             throw new PersistException(e);
         }
-    }
-
-    public AbstractJDBCDao(DaoFactory<Connection> parentFactory, Connection connection) {
-        this.parentFactory = parentFactory;
-        this.connection = connection;
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.epam.library.dao.impl;
 
+import com.epam.library.dao.DaoFactory;
 import com.epam.library.dao.GenericDao;
 import com.epam.library.dao.exception.PersistException;
 import com.epam.library.database.StandaloneConnectionPool;
@@ -14,7 +15,7 @@ import java.util.Map;
 /**
  * Created by Evgeny Yushkevich on 22.11.2016.
  */
-public final class MySQLDaoFactory implements com.epam.library.dao.DaoFactory {
+public final class MySQLDaoFactory implements DaoFactory {
 
     private Map<Class, DaoCreator> creators;
     private final static MySQLDaoFactory instance = new MySQLDaoFactory();

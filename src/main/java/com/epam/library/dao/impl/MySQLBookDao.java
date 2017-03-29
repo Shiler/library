@@ -29,31 +29,6 @@ public final class MySQLBookDao extends AbstractJDBCDao<Book, Integer> {
     }
 
     @Override
-    public String getSelectQuery() {
-        return "SELECT `id`, `title`, `brief`, `publish_year`, `author` FROM `book` ";
-    }
-
-    @Override
-    public String getCreateQuery() {
-        return "INSERT INTO `book` \n" +
-                "(`title`, `brief`, `publish_year`, `author`) \n" +
-                "VALUES \n" +
-                "(?, ?, ?, ?)";
-    }
-
-    @Override
-    public String getUpdateQuery() {
-        return "UPDATE `book` \n" +
-                "SET `title` = ?, `brief` = ?, `publish_year` = ?, `author` = ? \n" +
-                "WHERE `id` = ?;";
-    }
-
-    @Override
-    public String getDeleteQuery() {
-        return "DELETE FROM `book` WHERE `id` = ?";
-    }
-
-    @Override
     protected void prepareStatementForInsert(PreparedStatement statement, Book object) throws PersistException {
         try {
             statement.setString(1, object.getTitle());
