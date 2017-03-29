@@ -1,7 +1,6 @@
 package com.epam.library.dao;
 
-import com.epam.library.dao.GenericDao;
-import com.epam.library.dao.Identified;
+import com.epam.library.domain.Identified;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

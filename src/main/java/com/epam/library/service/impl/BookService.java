@@ -1,9 +1,8 @@
 package com.epam.library.service.impl;
 
-import com.epam.library.dao.DaoFactory;
 import com.epam.library.dao.exception.PersistException;
-import com.epam.library.dao.impl.MySqlBookDao;
-import com.epam.library.dao.impl.MySqlDaoFactory;
+import com.epam.library.dao.impl.MySQLBookDao;
+import com.epam.library.dao.impl.MySQLDaoFactory;
 import com.epam.library.domain.Book;
 import com.epam.library.exception.ServiceException;
 import com.epam.library.service.ICRUDBookService;
@@ -19,13 +18,11 @@ public class BookService implements ICRUDBookService {
 
     private final static Logger logger = LogManager.getLogger(BookService.class);
 
-    private DaoFactory daoFactory;
-    private MySqlBookDao bookDao;
+    private MySQLBookDao bookDao;
 
     public BookService() {
-        daoFactory = new MySqlDaoFactory();
         try {
-            bookDao = (MySqlBookDao) daoFactory.getDao(Book.class);
+            bookDao = (MySQLBookDao) MySQLDaoFactory.getInstance().getDao(Book.class);
         } catch (PersistException e) {
             logger.error("Unable to get DAO for BookService");
         }

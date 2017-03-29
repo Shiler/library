@@ -1,4 +1,4 @@
-package com.epam.library.dao;
+package com.epam.library.domain;
 
 import java.io.Serializable;
 

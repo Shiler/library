@@ -1,6 +1,6 @@
 package com.epam.library.service;
 
-import com.epam.library.dao.Identified;
+import com.epam.library.domain.Identified;
 import com.epam.library.exception.ServiceException;
 
 import java.io.Serializable;

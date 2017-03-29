@@ -1,13 +1,13 @@
 package com.epam.library.domain;
 
-import com.epam.library.dao.Identified;
-
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
 /**
  * Created by Evgeny Yushkevich on 15.03.2017.
  */
-public class Employee implements Identified<Integer> {
+public class Employee implements Identified<Integer>, Serializable {
 
     private int id;
     private String name;
@@ -45,5 +45,21 @@ public class Employee implements Identified<Integer> {
     @Override
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id &&
+                Objects.equals(name, employee.name) &&
+                Objects.equals(email, employee.email) &&
+                Objects.equals(dateOfBirth, employee.dateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, dateOfBirth);
     }
 }

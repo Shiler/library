@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Evgeny Yushkevich on 15.03.2017.
  */
-public final class MySQLBookDao extends AbstractJDBCDao<Book, Integer> {
+public class MySQLBookDao extends AbstractJDBCDao<Book, Integer> {
 
     private class PersistBook extends Book {
         public void setId(int id) {

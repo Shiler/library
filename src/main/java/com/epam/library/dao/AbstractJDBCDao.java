@@ -1,6 +1,7 @@
 package com.epam.library.dao;
 
 import com.epam.library.dao.exception.PersistException;
+import com.epam.library.domain.Identified;
 
 import java.io.Serializable;
 import java.sql.Connection;

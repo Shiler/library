@@ -1,9 +1,10 @@
 package com.epam.library.dao;
 
 import com.epam.library.dao.exception.PersistException;
-import com.epam.library.dao.impl.MySqlDaoFactory;
+import com.epam.library.dao.impl.MySQLDaoFactory;
 import com.epam.library.domain.Book;
 import com.epam.library.domain.Employee;
+import com.epam.library.domain.Identified;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runners.Parameterized;
@@ -28,7 +29,7 @@ public class MySqlDaoTest extends GenericDaoTest<Connection> {
 
     private GenericDao dao;
 
-    private static final MySqlDaoFactory factory = new MySqlDaoFactory();
+    private static final MySQLDaoFactory factory = new MySQLDaoFactory();
 
     @Parameterized.Parameters
     public static Collection getParameters() {

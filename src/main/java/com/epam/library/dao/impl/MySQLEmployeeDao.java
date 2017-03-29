@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Evgeny Yushkevich on 15.03.2017.
  */
-public class MySqlEmployeeDao extends AbstractJDBCDao<Employee, Integer> {
+public final class MySQLEmployeeDao extends AbstractJDBCDao<Employee, Integer> {
 
     private class PersistEmployee extends Employee {
         public void setId(int id) {
@@ -23,7 +23,7 @@ public class MySqlEmployeeDao extends AbstractJDBCDao<Employee, Integer> {
         }
     }
 
-    public MySqlEmployeeDao(DaoFactory<Connection> parentFactory, Connection connection) {
+    public MySQLEmployeeDao(DaoFactory<Connection> parentFactory, Connection connection) {
         super(parentFactory, connection);
     }
 

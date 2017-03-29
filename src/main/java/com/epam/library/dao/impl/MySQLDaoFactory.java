@@ -1,6 +1,5 @@
 package com.epam.library.dao.impl;
 
-import com.epam.library.dao.DaoFactory;
 import com.epam.library.dao.GenericDao;
 import com.epam.library.dao.exception.PersistException;
 import com.epam.library.database.StandaloneConnectionPool;
@@ -15,9 +14,16 @@ import java.util.Map;
 /**
  * Created by Evgeny Yushkevich on 22.11.2016.
  */
-public class MySqlDaoFactory implements DaoFactory<Connection> {
+public final class MySQLDaoFactory implements com.epam.library.dao.DaoFactory {
 
     private Map<Class, DaoCreator> creators;
+    private final static MySQLDaoFactory instance = new MySQLDaoFactory();
+
+    public MySQLDaoFactory() {
+        creators = new HashMap<>();
+        creators.put(Book.class, connection -> new MySQLBookDao(MySQLDaoFactory.this, (Connection) connection));
+        creators.put(Employee.class, connection -> new MySQLEmployeeDao(MySQLDaoFactory.this, (Connection) connection));
+    }
 
     public Connection getContext() throws PersistException {
         try {
@@ -27,6 +33,10 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
         }
     }
 
+    public static MySQLDaoFactory getInstance() {
+        return instance;
+    }
+
     @Override
     public GenericDao getDao(Class dtoClass) throws PersistException {
         DaoCreator creator = creators.get(dtoClass);
@@ -34,12 +44,6 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
             throw new PersistException("Dao object for " + dtoClass + " not found.");
         }
         return creator.create(getContext());
-    }
-
-    public MySqlDaoFactory() {
-        creators = new HashMap<>();
-        creators.put(Book.class, connection -> new MySqlBookDao(MySqlDaoFactory.this, (Connection) connection));
-        creators.put(Employee.class, connection -> new MySqlEmployeeDao(MySqlDaoFactory.this, (Connection) connection));
     }
 
 }

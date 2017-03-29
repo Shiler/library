@@ -1,11 +1,12 @@
 package com.epam.library.domain;
 
-import com.epam.library.dao.Identified;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by Evgeny Yushkevich on 15.03.2017.
  */
-public class Book implements Identified<Integer> {
+public class Book implements Identified<Integer>, Serializable {
 
     private int id;
     private String title;
@@ -53,4 +54,22 @@ public class Book implements Identified<Integer> {
     public Integer getId() {
         return id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id &&
+                dateOfPublishing == book.dateOfPublishing &&
+                Objects.equals(title, book.title) &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(brief, book.brief);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, author, brief, dateOfPublishing);
+    }
+    
 }

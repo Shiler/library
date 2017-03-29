@@ -2,8 +2,8 @@ package com.epam.library.service.impl;
 
 import com.epam.library.dao.DaoFactory;
 import com.epam.library.dao.exception.PersistException;
-import com.epam.library.dao.impl.MySqlDaoFactory;
-import com.epam.library.dao.impl.MySqlEmployeeDao;
+import com.epam.library.dao.impl.MySQLEmployeeDao;
+import com.epam.library.dao.impl.MySQLDaoFactory;
 import com.epam.library.domain.Employee;
 import com.epam.library.exception.ServiceException;
 import com.epam.library.service.IEmployeeService;
@@ -18,15 +18,13 @@ import java.util.List;
 public class EmployeeService implements IEmployeeService {
 
     private final static Logger logger = LogManager.getLogger(EmployeeService.class);
-    private DaoFactory daoFactory;
-    private MySqlEmployeeDao employeeDao;
+    private MySQLEmployeeDao employeeDao;
 
     public EmployeeService() {
-        daoFactory = new MySqlDaoFactory();
         try {
-            employeeDao = (MySqlEmployeeDao) daoFactory.getDao(Employee.class);
+            employeeDao = (MySQLEmployeeDao) MySQLDaoFactory.getInstance().getDao(Employee.class);
         } catch (PersistException e) {
-            logger.error("Unable to get EmployeeDao");
+            logger.error("Unable to get MySQLEmployeeDao");
         }
     }
 
