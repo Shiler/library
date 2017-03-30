@@ -4,7 +4,6 @@ import com.epam.library.dao.exception.PersistException;
 import com.epam.library.domain.Identified;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
 
 /**
  * Responds for implementing relation many-to-many.
@@ -14,7 +13,7 @@ import java.sql.Connection;
  */
 public class ManyToOne<Owner extends Identified, Dependence extends Identified> {
 
-    private DaoFactory<Connection> factory;
+    private DaoFactory factory;
 
     private Field field;
 
@@ -30,12 +29,12 @@ public class ManyToOne<Owner extends Identified, Dependence extends Identified> 
         field.set(owner, dependence);
     }
 
-    public Identified persistDependence(Owner owner, Connection connection)
+    public Identified persistDependence(Owner owner)
             throws IllegalAccessException, PersistException {
         return factory.getDao(field.getType()).persist(getDependence(owner));
     }
 
-    public void updateDependence(Owner owner, Connection connection)
+    public void updateDependence(Owner owner)
             throws IllegalAccessException, PersistException {
         factory.getDao(field.getType()).update(getDependence(owner));
     }
@@ -50,7 +49,7 @@ public class ManyToOne<Owner extends Identified, Dependence extends Identified> 
         return hash;
     }
 
-    public ManyToOne(Class<Owner> ownerClass, DaoFactory<Connection> factory, String field)
+    public ManyToOne(Class<Owner> ownerClass, DaoFactory factory, String field)
             throws NoSuchFieldException {
         this.factory = factory;
         this.field = ownerClass.getDeclaredField(field);

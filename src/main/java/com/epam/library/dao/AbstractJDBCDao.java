@@ -3,6 +3,8 @@ package com.epam.library.dao;
 import com.epam.library.dao.exception.PersistException;
 import com.epam.library.dao.query.CRUDQueryComposer;
 import com.epam.library.dao.query.exception.MissingPropertyException;
+import com.epam.library.database.DatabaseUtil;
+import com.epam.library.database.StandaloneConnectionPool;
 import com.epam.library.domain.Identified;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +14,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,15 +31,13 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
 
     private final static Logger logger = LogManager.getLogger(AbstractJDBCDao.class);
 
-    private DaoFactory<Connection> parentFactory;
-    private Connection connection;
+    private DaoFactory parentFactory;
     private Set<ManyToOne> relations = new HashSet<>();
 
     private CRUDQueryComposer crudQueryComposer;
 
-    public AbstractJDBCDao(DaoFactory<Connection> parentFactory, Connection connection) {
+    public AbstractJDBCDao(DaoFactory parentFactory) {
         this.parentFactory = parentFactory;
-        this.connection = connection;
         try {
             crudQueryComposer = new CRUDQueryComposer(this.getClass());
         } catch (FileNotFoundException e) {
@@ -129,12 +130,16 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
         List<T> list;
         String sql = getSelectQuery();
         sql += " WHERE id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        PreparedStatement statement = null;
+        try (Connection connection = StandaloneConnectionPool.takeConnection()) {
+            statement = connection.prepareStatement(sql);
             statement.setInt(1, key);
             ResultSet rs = statement.executeQuery();
             list = parseResultSet(rs);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new PersistException(e);
+        } finally {
+            DatabaseUtil.closeStatement(statement);
         }
         if (list == null || list.size() == 0) {
             return null;
@@ -149,11 +154,15 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
     public List<T> getAll() throws PersistException {
         List<T> list;
         String sql = getSelectQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        PreparedStatement statement = null;
+        try (Connection connection = StandaloneConnectionPool.takeConnection()) {
+            statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             list = parseResultSet(rs);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new PersistException(e);
+        } finally {
+            DatabaseUtil.closeStatement(statement);
         }
         return list;
     }
@@ -164,25 +173,33 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
         T persistInstance;
 
         String sql = getCreateQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        PreparedStatement statement = null;
+        try (Connection connection = StandaloneConnectionPool.takeConnection()) {
+            statement = connection.prepareStatement(sql);
             prepareStatementForInsert(statement, object);
             int count = statement.executeUpdate();
             if (count != 1) {
                 throw new PersistException("On persist modify more then 1 record: " + count);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new PersistException(e);
+        } finally {
+            DatabaseUtil.closeStatement(statement);
         }
+
         sql = getSelectQuery() + " WHERE id = last_insert_id();";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = StandaloneConnectionPool.takeConnection()) {
+            statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             List<T> list = parseResultSet(rs);
             if ((list == null) || (list.size() != 1)) {
                 throw new PersistException("Exception on findByPK new persist data.");
             }
             persistInstance = list.iterator().next();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new PersistException(e);
+        } finally {
+            DatabaseUtil.closeStatement(statement);
         }
         return persistInstance;
     }
@@ -191,33 +208,36 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
     public void update(T object) throws PersistException {
 
         String sql = getUpdateQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        PreparedStatement statement = null;
+        try (Connection connection = StandaloneConnectionPool.takeConnection()) {
+            statement = connection.prepareStatement(sql);
             prepareStatementForUpdate(statement, object);
             int count = statement.executeUpdate();
             if (count != 1) {
                 throw new PersistException("On update modify more then 1 record: " + count);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new PersistException(e);
+        } finally {
+            DatabaseUtil.closeStatement(statement);
         }
     }
 
     @Override
     public void delete(T object) throws PersistException {
         String sql = getDeleteQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            try {
-                statement.setObject(1, object.getId());
-            } catch (Exception e) {
-                throw new PersistException(e);
-            }
+        PreparedStatement statement = null;
+        try (Connection connection = StandaloneConnectionPool.takeConnection()) {
+            statement = connection.prepareStatement(sql);
+            statement.setObject(1, object.getId());
             int count = statement.executeUpdate();
             if (count != 1) {
                 throw new PersistException("On delete modify more then 1 record: " + count);
             }
-            statement.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new PersistException(e);
+        } finally {
+            DatabaseUtil.closeStatement(statement);
         }
     }
 
@@ -248,10 +268,10 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
                     continue;
                 }
                 if (m.getDependence(owner).getId() == null) {
-                    Identified depend = m.persistDependence(owner, connection);
+                    Identified depend = m.persistDependence(owner);
                     m.setDependence(owner, depend);
                 } else {
-                    m.updateDependence(owner, connection);
+                    m.updateDependence(owner);
                 }
             } catch (Exception e) {
                 throw new PersistException("Exception on save dependence in relation " + m + ".", e);
@@ -259,7 +279,4 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>,
         }
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
 }

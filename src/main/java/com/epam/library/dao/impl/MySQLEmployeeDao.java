@@ -5,7 +5,6 @@ import com.epam.library.dao.DaoFactory;
 import com.epam.library.dao.exception.PersistException;
 import com.epam.library.domain.Employee;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +22,8 @@ public final class MySQLEmployeeDao extends AbstractJDBCDao<Employee, Integer> {
         }
     }
 
-    public MySQLEmployeeDao(DaoFactory<Connection> parentFactory, Connection connection) {
-        super(parentFactory, connection);
+    public MySQLEmployeeDao(DaoFactory parentFactory) {
+        super(parentFactory);
     }
 
     @Override

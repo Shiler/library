@@ -3,6 +3,8 @@ package com.epam.library.dao.impl;
 import com.epam.library.dao.AbstractJDBCDao;
 import com.epam.library.dao.DaoFactory;
 import com.epam.library.dao.exception.PersistException;
+import com.epam.library.database.DatabaseUtil;
+import com.epam.library.database.StandaloneConnectionPool;
 import com.epam.library.domain.Book;
 
 import java.sql.Connection;
@@ -23,9 +25,8 @@ public final class MySQLBookDao extends AbstractJDBCDao<Book, Integer> {
         }
     }
 
-
-    public MySQLBookDao(DaoFactory<Connection> parentFactory, Connection connection) {
-        super(parentFactory, connection);
+    public MySQLBookDao(DaoFactory parentFactory) {
+        super(parentFactory);
     }
 
     @Override
@@ -74,13 +75,16 @@ public final class MySQLBookDao extends AbstractJDBCDao<Book, Integer> {
 
     public void renameBook(String titleOld, String titleNew) throws PersistException {
         String sql = "UPDATE `book` SET `title` = ? WHERE `title` = ?;";
-        try {
-            PreparedStatement statement = getConnection().prepareStatement(sql);
+        PreparedStatement statement = null;
+        try (Connection connection = StandaloneConnectionPool.takeConnection()) {
+            statement = connection.prepareStatement(sql);
             statement.setString(1, titleNew);
             statement.setString(2, titleOld);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new PersistException();
+        } finally {
+            DatabaseUtil.closeStatement(statement);
         }
 
     }
